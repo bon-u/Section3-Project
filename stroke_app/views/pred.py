@@ -27,24 +27,13 @@ pipe= make_pipeline(
     OneHotEncoder(), 
     SimpleImputer(),
     StandardScaler(),
-    SelectKBest(f_regression),
     LogisticRegression(
         random_state=2
         ,n_jobs=-1)
 )
-dists = {  
-    'selectkbest__k': range(1, len(X_train.columns)+1)
-}
-clf= GridSearchCV(
-    pipe,
-    param_grid=dists,
-    cv=3,
-    scoring='neg_mean_absolute_error',
-    verbose=1)
+
 #모델 훈련
-clf.fit(X_train, y_train)
-model= clf.best_estimator_
-model.fit(X_train,y_train)
+pipe.fit(X_train,y_train)
 
 #예측 함수
 def Predict(values):
@@ -52,5 +41,5 @@ def Predict(values):
     user_data=pd.DataFrame(values)
     user_data = user_data.transpose()
     user_data.columns=col
-    ans=model.predict(user_data)
+    ans=pipe.predict(user_data)
     return ans
