@@ -1,5 +1,5 @@
 import pandas as pd
-from pymongo import MongoClient
+import os
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
@@ -7,18 +7,8 @@ from category_encoders import OneHotEncoder
 from sklearn.impute import SimpleImputer 
 from sklearn.linear_model import LogisticRegression
 
-#MongoDB 정보
-HOST = 'cluster0.0eulv.mongodb.net'
-USER = 'Treachery'
-PASSWORD = '4345350'
-DATABASE_NAME = 'myFirstDatabase'
-COLLECTION_NAME = 'strokedata'
-
-#MongoDB 데이터 프레임으로 불러오기
-client = MongoClient(f"mongodb+srv://{USER}:{PASSWORD}@{HOST}/{DATABASE_NAME}?retryWrites=false&ssl_cert_reqs=CERT_NONE")
-db = client[DATABASE_NAME]
-collection = db[COLLECTION_NAME]
-data = pd.DataFrame(list(collection.find()))
+CSV_FILEPATH = os.path.join(os.getcwd(), 'healthcare-dataset-stroke-data.csv')
+data=pd.read_csv(CSV_FILEPATH)
 
 #중복제거 및 결측치 제거
 df=data.drop_duplicates()
