@@ -3,7 +3,7 @@ from . import pred
 
 indata = Blueprint('indata', __name__)
 
-@indata.route('/indata',methods=['POST'])
+@indata.route('/indata',methods=['POST', 'GET'])
 def index():
     req=request.form
     data=list(req.values())
