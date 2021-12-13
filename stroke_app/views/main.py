@@ -7,7 +7,7 @@ main = Blueprint('main', __name__)
 def index():
     return render_template('index.html'), 200
 
-@main.route('/result',methods=['POST', 'GET'])
+@main.route('/result')
 def index():
     req=request.form
     data=list(req.values())
