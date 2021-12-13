@@ -13,10 +13,9 @@ data=pd.read_csv(CSV_FILEPATH)
 #중복제거 및 결측치 제거
 df=data.drop_duplicates()
 df=df.dropna()
-df = df[df.bmi != 'N/A']
 #train,val 데이터 나누기
 target='stroke'
-dt=df.drop([target,'work_type','Residence_type','avg_glucose_level','hypertension','heart_disease','ever_married','smoking_status'],axis=1)
+dt=df.drop([target,'work_type','Residence_type','avg_glucose_level','smoking_status','bmi'],axis=1)
 dt=dt.drop(dt.columns[[0]], axis=1)
 tg=df[target]
 X_train,X_val,y_train,y_val=train_test_split(dt,tg,test_size=0.2, random_state=10)
@@ -36,7 +35,7 @@ pipe.fit(X_train,y_train)
 
 #예측 함수
 def Predict(values):
-    col=['gender','age','bmi']
+    col=['gender','age','ever_married','hypertension','heart_disease']
     user_data=pd.DataFrame(values)
     user_data = user_data.transpose()
     user_data.columns=col

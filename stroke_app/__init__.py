@@ -3,10 +3,10 @@ def create_app():
     app = Flask(__name__)
 
     from .views.main import main
-    from .views.front import front
+    from .views.indata import indata
 
     app.register_blueprint(main)
-    app.register_blueprint(front)
+    app.register_blueprint(indata)
 
     return app
     
